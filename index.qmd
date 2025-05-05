@@ -1,3 +1,20 @@
+
+```{r packages, echo = FALSE}
+options(digits = 10) 
+suppressPackageStartupMessages(library(knitr, quietly = TRUE))
+suppressPackageStartupMessages(library(microbenchmark, quietly = TRUE))
+```
+
+```{r code_exec_engine, echo = FALSE}
+source("rcode/gifiEngine.R")
+source("rcode/gifiUtilities.R")
+source("rcode/gifiWrappers.R")
+source("rcode/gifiStructures.R")
+source("rcode/matrix.R")
+source("rcode/coneRegression.R")
+source("rcode/splineBasis.R")
+```
+
 # Preface {-}
 
 In 1980 members of the Department of Data Theory at the University of Leiden taught a post-doctoral course in Nonlinear Multivariate Analysis. The course content was sort-of-published, in Dutch, as @gifi_B_80. The course was repeated in 1981, and this time the sort-of-published version (@gifi_B_81) was in English. 

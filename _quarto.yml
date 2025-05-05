@@ -8,35 +8,40 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - summary.qmd
+    - coding.qmd
+    - algorithm.qmd
+    - mca.qmd
     - references.qmd
-
 date: last-modified
 date-format: long
 bibliography: [mypubs.bib, total.bib]
 number-sections: true
-pdf-engine: lualatex
-keep-tex: true
-format:
-   pdf:
-    documentclass: scrreprt
-    fontsize: 12pt
-    include-in-header: 
-     - preamble.tex
-    keep-tex: true
-    link-citations: true
-   html:
-    theme:
-      - cosmo
-      - brand
-    fontsize: 12pt
+fontsize: 12pt
+link-citations: true
 toc: true
 toc-depth: 3
 editor: source
 papersize: letter
 graphics: true
-link-citations: true
 mainfont: Times New Roman
+search: true
+cover-image: gifi.png
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrbook
+    fontsize: 12pt
+    include-in-header: 
+     - preamble.tex
+    pdf-engine: lualatex
+    keep-tex: true
+ 
+
+ 
+
 
 
 
