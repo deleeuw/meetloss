@@ -2,8 +2,8 @@ project:
   type: book
 
 book:
-  title: "meetloss"
-  author: "Norah Jones"
+  title: "Gifi Analysis of Multivariate Data"
+  author: "Jan de Leeuw"
   date: "5/5/2025"
   chapters:
     - index.qmd
@@ -11,15 +11,33 @@ book:
     - summary.qmd
     - references.qmd
 
-bibliography: references.bib
-
+date: last-modified
+date-format: long
+bibliography: [mypubs.bib, total.bib]
+number-sections: true
+pdf-engine: lualatex
+keep-tex: true
 format:
-  html:
+   pdf:
+    documentclass: scrreprt
+    fontsize: 12pt
+    include-in-header: 
+     - preamble.tex
+    keep-tex: true
+    link-citations: true
+   html:
     theme:
       - cosmo
       - brand
-  pdf:
-    documentclass: scrreprt
+    fontsize: 12pt
+toc: true
+toc-depth: 3
+editor: source
+papersize: letter
+graphics: true
+link-citations: true
+mainfont: Times New Roman
+
 
 
 
