@@ -1,2 +1,13 @@
-/.quarto/
 .Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.tex
+*.pdf
+*.aux
+*.md
+*.Rproj
+!README.md
+*._files
+._libs
+/.quarto/
