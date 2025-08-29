@@ -1,27 +1,27 @@
 homals <-
-  function (data,
-            knots = knotsD (data),
-            degrees = -1,
-            ordinal = FALSE,
-            ndim = 2,
-            ties = "s",
-            missing = "m",
-            names = colnames (data, do.NULL = FALSE),
-            active = TRUE,
-            itmax = 1000,
-            eps = 1e-6,
-            seed = 123,
-            verbose = FALSE)  {
+  function(data,
+           knots = knotsD(data),
+           degrees = -1,
+           ordinal = FALSE,
+           ndim = 2,
+           ties = "s",
+           missing = "m",
+           names = colnames(data, do.NULL = FALSE),
+           active = TRUE,
+           itmax = 1000,
+           eps = 1e-6,
+           seed = 123,
+           verbose = FALSE)  {
     nvars <- ncol (data)
-    g <- makeGifi (
+    g <- makeGifi(
       data = data,
       knots = knots,
-      degrees = reshape (degrees, nvars),
-      ordinal = reshape (ordinal, nvars),
-      ties = reshape (ties, nvars),
-      copies = rep (ndim, ncol (data)),
-      missing = reshape (missing, nvars),
-      active = reshape (active, nvars),
+      degrees = reshape(degrees, nvars),
+      ordinal = reshape(ordinal, nvars),
+      ties = reshape(ties, nvars),
+      copies = rep(ndim, ncol(data)),
+      missing = reshape(missing, nvars),
+      active = reshape(active, nvars),
       names = names,
       sets = 1:nvars
     )
@@ -33,8 +33,8 @@ homals <-
       seed = seed,
       verbose = verbose
     )
-    a <- v <- z <- d <- y <- o <- as.list (1:ncol(data))
-    dsum <- matrix (0, ndim, ndim)
+    a <- v <- z <- d <- y <- o <- as.list(1:ncol(data))
+    dsum <- matrix(0, ndim, ndim)
     nact <- 0
     for (j in 1:nvars) {
       jgifi <- h$xGifi[[j]][[1]]
@@ -42,18 +42,18 @@ homals <-
       a[[j]] <- jgifi$weights
       y[[j]] <- jgifi$scores
       z[[j]] <- jgifi$quantifications
-      cy <- crossprod (y[[j]])
+      cy <- crossprod(y[[j]])
       if (g[[j]][[1]]$active) {
         dsum <- dsum + cy
         nact <- nact + 1
       }
       d[[j]] <- cy
-      o[[j]] <- crossprod (h$x, v[[j]])
+      o[[j]] <- crossprod(h$x, v[[j]])
     }
-    return (structure (
-      list (
+    return (structure(
+      list(
         transform = v,
-        rhat = corList (v),
+        rhat = corList(v),
         objectscores = h$x,
         scores = y,
         quantifications = z,
@@ -69,27 +69,27 @@ homals <-
   }
 
 corals <-
-  function (data,
-            ftype = TRUE,
-            xknots = NULL,
-            yknots = NULL,
-            xdegree = -1,
-            ydegree = -1,
-            xordinal = FALSE,
-            yordinal = FALSE,
-            xties = "s",
-            yties = "s",
-            xmissing = "m",
-            ymissing = "m",
-            xname = "X",
-            yname = "Y",
-            ndim = 2,
-            itmax = 1000,
-            eps = 1e-6,
-            seed = 123,
-            verbose = FALSE) {
+  function(data,
+           ftype = TRUE,
+           xknots = NULL,
+           yknots = NULL,
+           xdegree = -1,
+           ydegree = -1,
+           xordinal = FALSE,
+           yordinal = FALSE,
+           xties = "s",
+           yties = "s",
+           xmissing = "m",
+           ymissing = "m",
+           xname = "X",
+           yname = "Y",
+           ndim = 2,
+           itmax = 1000,
+           eps = 1e-6,
+           seed = 123,
+           verbose = FALSE) {
     if (ftype) {
-      xy <- preCorals (as.matrix(data))
+      xy <- preCorals(as.matrix(data))
       x <- xy[, 1, drop = FALSE]
       y <- xy[, 2, drop = FALSE]
     } else {
@@ -147,31 +147,31 @@ corals <-
     ))
   }
 
-coranals <- function () {
-
+coranals <- function() {
+  
 }
 
 morals <-
-  function (x,
-            y,
-            xknots = knotsQ(x),
-            yknots = knotsQ(y),
-            xdegrees = 2,
-            ydegrees = 2,
-            xordinal = TRUE,
-            yordinal = TRUE,
-            xties = "s",
-            yties = "s",
-            xmissing = "m",
-            ymissing = "m",
-            xnames = colnames (x, do.NULL = FALSE),
-            ynames = "Y",
-            xactive = TRUE,
-            xcopies = 1,
-            itmax = 1000,
-            eps = 1e-6,
-            seed = 123,
-            verbose = FALSE) {
+  function(x,
+           y,
+           xknots = knotsQ(x),
+           yknots = knotsQ(y),
+           xdegrees = 2,
+           ydegrees = 2,
+           xordinal = TRUE,
+           yordinal = TRUE,
+           xties = "s",
+           yties = "s",
+           xmissing = "m",
+           ymissing = "m",
+           xnames = colnames (x, do.NULL = FALSE),
+           ynames = "Y",
+           xactive = TRUE,
+           xcopies = 1,
+           itmax = 1000,
+           eps = 1e-6,
+           seed = 123,
+           verbose = FALSE) {
     npred <- ncol (x)
     nobs <- nrow (x)
     xdegrees <- reshape (xdegrees, npred)
@@ -227,20 +227,20 @@ morals <-
   }
 
 princals <-
-  function (data,
-            knots = knotsQ (data),
-            degrees = 2,
-            ordinal = TRUE,
-            copies = 1,
-            ndim = 2,
-            ties = "s",
-            missing = "m",
-            names = colnames (data, do.NULL = FALSE),
-            active = TRUE,
-            itmax = 1000,
-            eps = 1e-6,
-            seed = 123,
-            verbose = FALSE)  {
+  function(data,
+           knots = knotsQ(data),
+           degrees = 2,
+           ordinal = TRUE,
+           copies = 1,
+           ndim = 2,
+           ties = "s",
+           missing = "m",
+           names = colnames(data, do.NULL = FALSE),
+           active = TRUE,
+           itmax = 1000,
+           eps = 1e-6,
+           seed = 123,
+           verbose = FALSE)  {
     aname <- deparse (substitute (data))
     nvars <- ncol (data)
     nobs <- nrow (data)
@@ -296,27 +296,27 @@ princals <-
   }
 
 criminals <-
-  function (x,
-            y,
-            xknots = knotsQ(x),
-            yknots = knotsD(y),
-            xdegrees = 2,
-            ydegrees = -1,
-            xordinal = TRUE,
-            yordinal = FALSE,
-            xcopies = 1,
-            xties = "s",
-            yties = "s",
-            xmissing = "m",
-            ymissing = "m",
-            xactive = TRUE,
-            xnames = colnames (x, do.NULL = FALSE),
-            ynames = "Y",
-            ndim = 2,
-            itmax = 1000,
-            eps = 1e-6,
-            seed = 123,
-            verbose = FALSE) {
+  function(x,
+           y,
+           xknots = knotsQ(x),
+           yknots = knotsD(y),
+           xdegrees = 2,
+           ydegrees = -1,
+           xordinal = TRUE,
+           yordinal = FALSE,
+           xcopies = 1,
+           xties = "s",
+           yties = "s",
+           xmissing = "m",
+           ymissing = "m",
+           xactive = TRUE,
+           xnames = colnames (x, do.NULL = FALSE),
+           ynames = "Y",
+           ndim = 2,
+           itmax = 1000,
+           eps = 1e-6,
+           seed = 123,
+           verbose = FALSE) {
     aname <- deparse (substitute (data))
     npred <- ncol (x)
     nobs <- nrow (x)
@@ -374,21 +374,21 @@ criminals <-
   }
 
 canals <-
-  function (x,
-            y,
-            xknots = knotsQ(x),
-            yknots = knotsQ(y),
-            xdegrees = rep(2, ncol(x)),
-            ydegrees = rep(2, ncol(y)),
-            xordinal = rep (TRUE, ncol (x)),
-            yordinal = rep (TRUE, ncol (y)),
-            xcopies = rep (1, ncol (x)),
-            ycopies = rep (1, ncol (y)),
-            ndim = 2,
-            itmax = 1000,
-            eps = 1e-6,
-            seed = 123,
-            verbose = FALSE) {
+  function(x,
+           y,
+           xknots = knotsQ(x),
+           yknots = knotsQ(y),
+           xdegrees = rep(2, ncol(x)),
+           ydegrees = rep(2, ncol(y)),
+           xordinal = rep (TRUE, ncol (x)),
+           yordinal = rep (TRUE, ncol (y)),
+           xcopies = rep (1, ncol (x)),
+           ycopies = rep (1, ncol (y)),
+           ndim = 2,
+           itmax = 1000,
+           eps = 1e-6,
+           seed = 123,
+           verbose = FALSE) {
     h <- gifiEngine(
       data = cbind (x, y),
       knots = c(xknots, yknots),
@@ -438,17 +438,17 @@ canals <-
 
 
 overals <-
-  function (data,
-            sets,
-            copies,
-            knots = knotsQ (data),
-            degrees = rep (2, ncol (data)),
-            ordinal = rep (TRUE, ncol (data)),
-            ndim = 2,
-            itmax = 1000,
-            eps = 1e-6,
-            seed = 123,
-            verbose = FALSE)  {
+  function(data,
+           sets,
+           copies,
+           knots = knotsQ (data),
+           degrees = rep (2, ncol (data)),
+           ordinal = rep (TRUE, ncol (data)),
+           ndim = 2,
+           itmax = 1000,
+           eps = 1e-6,
+           seed = 123,
+           verbose = FALSE)  {
     h <- gifiEngine(
       data = data,
       knots = knots,
@@ -468,7 +468,7 @@ overals <-
     y <- xhat
     for (j in 1:ncol(data)) {
       k <- (1:ndim) + (j - 1) * ndim
-      y[, k] <- xhat[, k] %*% a[k,]
+      y[, k] <- xhat[, k] %*% a[k, ]
     }
     return (structure (
       list (
@@ -484,14 +484,14 @@ overals <-
   }
 
 
-primals <- function () {
-
+primals <- function() {
+  
 }
 
-addals <- function () {
-
+addals <- function() {
+  
 }
 
-pathals <- function () {
-
+pathals <- function() {
+  
 }
