@@ -14,4 +14,5 @@
 ._libs
 /.quarto/
 /_book
+/*_cache
 **/*.quarto_ipynb
