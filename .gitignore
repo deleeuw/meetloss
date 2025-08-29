@@ -11,3 +11,4 @@
 *._files
 ._libs
 /.quarto/
+**/*.quarto_ipynb

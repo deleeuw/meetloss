@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.1">
+<meta name="generator" content="quarto-1.8.21">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -55,14 +55,15 @@ div.csl-indent {
 <link href="./intro.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-443ac161e34e8c1eedb78f958e3d9213.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6e045f4d27f89bba5f7581abbae0a0da.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-de6c7be80aad2e30aa3088f7100c4292.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -116,7 +117,9 @@ div.csl-indent {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Homogeneity Analysis</a> 
     </div>
@@ -156,6 +159,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./mca.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multiple Correspondence Analysis and homals()</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Correspondence Analysis and corals()</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -220,7 +229,7 @@ div.csl-indent {
 <blockquote class="blockquote">
 <p>The text is the joint product of the members of the Department of Data Theory of the Faculty of Social Sciences, University of Leiden. ‘Albert Gifi’ is their ‘nom de plume’. The portrait, however, of Albert Gifi shown here, is that of the real Albert Gifi to whose memory this book is dedicated, as a far too late recompense for his loyalty and devotion, during so any years, to the Cause he served.</p>
 </blockquote>
-<p>Roughly ten years later a revised version of these course notes came out as an actual book in the <em>Wiley Series in Probabilty and Mathematical Statistics</em> (<span class="citation" data-cites="gifi_B_90">Gifi (<a href="references.html#ref-gifi_B_90" role="doc-biblioref">1990</a>)</span>). This despite the fact that the contents of the book had very little to do with either probability or mathematical statistics. The book is organized around a series of computer programs for correspondence analysis, principal component analysis, and canonical analysis. The programs, written in FORTRAN, are called HOMALS, PRINCALS, PRIMALS, CRIMINALS, CANALS, OVERALS because they combine classical linear multivariate analysis with optimal transformation of the variables, using alternating least squares (or ALS). It serves, to some extent, as a manual for these programs, but it also discusses the properties of the techniques implemented in the programs, and it presents many detailed applications of these techniques.</p>
+<p>Roughly ten years later a revised version of these course notes came out as an actual book in the <em>Wiley Series in Probability and Mathematical Statistics</em> (<span class="citation" data-cites="gifi_B_90">Gifi (<a href="references.html#ref-gifi_B_90" role="doc-biblioref">1990</a>)</span>). This despite the fact that the contents of the book had very little to do with either probability or mathematical statistics. The book is organized around a series of computer programs for correspondence analysis, principal component analysis, and canonical analysis. The programs, written in FORTRAN, are called HOMALS, PRINCALS, PRIMALS, CRIMINALS, CANALS, OVERALS because they combine classical linear multivariate analysis with optimal transformation of the variables, using alternating least squares (or ALS). It serves, to some extent, as a manual for these programs, but it also discusses the properties of the techniques implemented in the programs, and it presents many detailed applications of these techniques.</p>
 <p>Reviewers generally had some difficulties separating the wheat from the chaff.</p>
 <blockquote class="blockquote">
 <p>As the spirit of Albert Gifi has faded away, so has his whimsical approach to publishing, and his latest book is an idiosyncratic account of multivariate methods developed by the Leiden group during the 1970s. The names of their computer programs are distinguished by the ending ~ALS, thus we have OVERALS, PRINCALS, HOMALS, CANALS, MORALS, MANOVALS, CRIMINALS, PARTALS and PATHALS. Perhaps if you have a warped mind like this reviewer, you will turn rapidly to CRIMINALS. What can it be ? Surely it must give some illicit view of the truth about the world, a vision of the underworld of multivariate analysis ? Alas no ! It turns out only to be a synonym of Canonical Variate Analysis, sometimes known as Multiple Discriminant Analysis. Likewise HOMALS turns out to be Reciprocal Averaging, otherwise known as Correspondence Analysis. (<span class="citation" data-cites="hill_90">Hill (<a href="references.html#ref-hill_90" role="doc-biblioref">1990</a>)</span>)</p>

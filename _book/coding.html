@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.1">
+<meta name="generator" content="quarto-1.8.21">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2025-05-05">
 
-<title>2&nbsp; Coding and Transformations – Gifi Analysis of Multivariate Data</title>
+<title>2&nbsp; Coding and Transformations – Homogeneity Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -90,14 +90,15 @@ div.csl-indent {
 <link href="./intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-443ac161e34e8c1eedb78f958e3d9213.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6e045f4d27f89bba5f7581abbae0a0da.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-de6c7be80aad2e30aa3088f7100c4292.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -140,7 +141,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -180,9 +181,11 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Gifi Analysis of Multivariate Data</a> 
+      <a href="./">Homogeneity Analysis</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -334,7 +337,7 @@ window.Quarto = {
 </div>
 <p>Create a basis for the non-missing values with</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span>(basis <span class="ot">&lt;-</span> <span class="fu">bsplineBasis</span>(x[<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))],<span class="dv">1</span>,<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span>(basis <span class="ot">&lt;-</span> <span class="fu">bsplineBasis</span>(x[<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))],<span class="dv">1</span>,<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]  [,2]  [,3] 
 [1,]  0.50  0.50  0.00
@@ -344,7 +347,7 @@ window.Quarto = {
 </div>
 <p>The three different completion options for missing data give</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (<span class="fu">makeMissing</span> (x, basis, <span class="at">missing =</span> <span class="st">"m"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (<span class="fu">makeMissing</span> (x, basis, <span class="at">missing =</span> <span class="st">"m"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]  [,2]  [,3]  [,4]  [,5] 
 [1,]  0.50  0.50  0.00  0.00  0.00
@@ -353,7 +356,7 @@ window.Quarto = {
 [4,]  0.00  0.01  0.99  0.00  0.00
 [5,]  0.00  0.00  0.00  0.00  1.00</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (<span class="fu">makeMissing</span> (x, basis, <span class="at">missing =</span> <span class="st">"s"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (<span class="fu">makeMissing</span> (x, basis, <span class="at">missing =</span> <span class="st">"s"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]  [,2]  [,3]  [,4] 
 [1,]  0.50  0.50  0.00  0.00
@@ -362,7 +365,7 @@ window.Quarto = {
 [4,]  0.00  0.01  0.99  0.00
 [5,]  0.00  0.00  0.00  1.00</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (<span class="fu">makeMissing</span> (x, basis, <span class="at">missing =</span> <span class="st">"a"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (<span class="fu">makeMissing</span> (x, basis, <span class="at">missing =</span> <span class="st">"a"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]  [,2]  [,3] 
 [1,]  0.50  0.50  0.00
@@ -384,7 +387,7 @@ window.Quarto = {
 <p>One of the major contributions of <em>Analyse des Données</em> is the emphasis on <em>coding</em>, which in our context can be defined as choosing how to represent the raw data of an experiment in an actual data frame (and, to a lesser extent, how to choose blocks, number of copies, dimensionality, degrees, and knots). In the section we discuss one important coding variation. Suppose we have <span class="math inline">\(n\)</span> observations on two factors, one with <span class="math inline">\(p\)</span> levels and one with <span class="math inline">\(q\)</span> levels. Then the data can be coded as <span class="math inline">\(n\)</span> observations on one factor with <span class="math inline">\(p\times q\)</span> levels, and we can construct a corresponding crisp indicator. The same reasoning applies to more than two categorical variables, which we can always code <em>interactively</em>. It also applies to bases for numerical variables, where we can define an interactive basis by using products of columns from the bases of each of the variables.</p>
 <p>If <span class="math inline">\(G=\{g_{is}\}\)</span> and <span class="math inline">\(H=\{h_{it}\}\)</span> are two indicators of dimensions <span class="math inline">\(n\times m_g\)</span> and <span class="math inline">\(n\times m_h\)</span>, then the <span class="math inline">\(n\times m_gm_h\)</span> matrix with elements {g_{is}h_{it}} is again an indicator: the elements are non-negative, and rows add up to one.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (x <span class="ot">&lt;-</span> <span class="fu">bsplineBasis</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span><span class="sc">/</span><span class="dv">10</span>, <span class="dv">1</span>, .<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (x <span class="ot">&lt;-</span> <span class="fu">bsplineBasis</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span><span class="sc">/</span><span class="dv">10</span>, <span class="dv">1</span>, .<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      [,1]  [,2]  [,3] 
  [1,]  1.00  0.00  0.00
@@ -399,7 +402,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (y <span class="ot">&lt;-</span> <span class="fu">makeIndicator</span> (<span class="fu">c</span> (<span class="fu">rep</span> (<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">rep</span> (<span class="dv">2</span>, <span class="dv">4</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (y <span class="ot">&lt;-</span> <span class="fu">makeIndicator</span> (<span class="fu">c</span> (<span class="fu">rep</span> (<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">rep</span> (<span class="dv">2</span>, <span class="dv">4</span>))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      [,1]  [,2] 
  [1,]  1.00  0.00
@@ -414,7 +417,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (<span class="fu">makeColumnProduct</span> (<span class="fu">list</span> (x, y)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mprint</span> (<span class="fu">makeColumnProduct</span> (<span class="fu">list</span> (x, y)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      [,1]  [,2]  [,3]  [,4]  [,5]  [,6] 
  [1,]  1.00  0.00  0.00  0.00  0.00  0.00

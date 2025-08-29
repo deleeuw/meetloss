@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.1">
+<meta name="generator" content="quarto-1.8.21">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2025-05-05">
 
-<title>4&nbsp; Multiple Correspondence Analysis and homals() – Gifi Analysis of Multivariate Data</title>
+<title>4&nbsp; Multiple Correspondence Analysis and homals() – Homogeneity Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -90,14 +90,15 @@ div.csl-indent {
 <link href="./algorithm.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-443ac161e34e8c1eedb78f958e3d9213.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6e045f4d27f89bba5f7581abbae0a0da.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-de6c7be80aad2e30aa3088f7100c4292.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -140,7 +141,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -180,9 +181,11 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Gifi Analysis of Multivariate Data</a> 
+      <a href="./">Homogeneity Analysis</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -282,7 +285,7 @@ window.Quarto = {
 <p>If all <span class="math inline">\(G_j\)</span> are binary indicators of categorical variables, and the <span class="math inline">\(m\)</span> blocks are all of span one, then MVAOS is <em>multiple correspondence analysis</em> (MCA). The block scores <span class="math inline">\(G_jY_j\)</span> are <span class="math inline">\(k_j\)</span> different points in <span class="math inline">\(\mathbb{R}^p\)</span>, with <span class="math inline">\(k_j\)</span> the number of categories of the variable, which is usually much less than <span class="math inline">\(n\)</span>. The plot connecting the block scores to the object scores is called the <em>star plot</em> of the variable. If <span class="math inline">\(k_j\)</span> is much smaller than <span class="math inline">\(n\)</span> a star plot will connect all object scores to their category centroids, and the plot for a block (i.e.&nbsp;a variable) will show <span class="math inline">\(k_j\)</span> stars. Since loss <span class="math inline">\(\sigma\)</span> is equal to the sum of squared distances between object scores and block scores, we quantify or transform variables so that stars are small.</p>
 <p>In our MVAOS MCA function <code>homals()</code> we allow for B-spline bases and for monotonicity restrictions. The input data (as for all MVAOS programs) needs to be numeric, and we included a small utility function <code>makeNumeric()</code> that can be used on data frames, factors, and character variables to turn them into numeric matrices. All other arguments to the function have default values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>homals <span class="ot">&lt;-</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>homals <span class="ot">&lt;-</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span> (data,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">knots =</span> <span class="fu">knotsD</span> (data),</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">degrees =</span> <span class="fu">rep</span> (<span class="sc">-</span><span class="dv">1</span>, <span class="fu">ncol</span> (data)),</span>
@@ -294,11 +297,11 @@ window.Quarto = {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">itmax =</span> <span class="dv">1000</span>,</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">eps =</span> <span class="fl">1e-6</span>,</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">seed =</span> <span class="dv">123</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The output is a structure of class <code>homals</code>, i.e.&nbsp;a list with a class attribute<code>homals</code>. The list consists of transformed variables (in xhat), their correlation (in rhat), the objectscores (in objectscores), the blockscores (in blockscores, which is itself a list of length number of variables), the discrimination matrices (in dmeasures, a list of length number of variables), their average (in lambda), the weights (in a), the number of iterations (in ntel), and the loss function value (in f).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span> (<span class="fu">structure</span> (</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span> (<span class="fu">structure</span> (</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span> (</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">transform =</span> v,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">rhat =</span> <span class="fu">corList</span> (v),</span>
@@ -313,7 +316,7 @@ window.Quarto = {
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">f =</span> h<span class="sc">$</span>f</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      ),</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">class =</span> <span class="st">"homals"</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note that in MCA we have <span class="math inline">\(H_jA_j=G_jY_j\)</span>. In previous Gifi publications the <span class="math inline">\(Y_j\)</span> are called <em>category quantifications</em>. Our current <code>homals()</code> does not output the categaory quantifications directly, only the block scores <span class="math inline">\(G_jY_j\)</span>. If the <span class="math inline">\(G_j\)</span> are binary indicators, the <span class="math inline">\(Y_j\)</span> are just the distinct rows of <span class="math inline">\(G_jY_j\)</span>. There is also some indeterminacy in the representation <span class="math inline">\(H_jA_j\)</span>, which we resolve, at least partially, by using the QR decomposition <span class="math inline">\(H_j=Q_jR_j\)</span> to replace <span class="math inline">\(H_j\)</span> by <span class="math inline">\(Q_j\)</span>, and use <span class="math inline">\(H_jA_j=Q_j(R_jA_j)\)</span>. One small problem with this is that we may have <span class="math inline">\(r_j\df\mathbf{rank}(H_j)&lt;r\)</span>, in which case there are only <span class="math inline">\(r_j\)</span> copies in <span class="math inline">\(Q_j\)</span>. This happens, for example, in the common case in which variable <span class="math inline">\(j\)</span> is binary and takes only two values.</p>
 </section>
@@ -356,7 +359,7 @@ screwb      Y    O           L      S      1     Y</code></pre>
 </div>
 <p>We can do a simple MCA, using all the default values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">homals</span> (<span class="fu">makeNumeric</span>(hartigan))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">homals</span> (<span class="fu">makeNumeric</span>(hartigan))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 After 54 iterations we find a solution with loss 0.5157273. The object scores are plotted in figure
 <hr>
@@ -443,13 +446,13 @@ The star plots, produced by the utility <code>starPlotter()</code> are in figure
 <p>The second example is somewhat more realistic. In the GALO dataset (<span class="citation" data-cites="peschar_75">Peschar (<a href="references.html#ref-peschar_75" role="doc-biblioref">1975</a>)</span>) data on 1290 school children in the sixth grade of an elementary school in 1959 in the city of Groningen (Netherlands) were collected. The variables are gender, IQ (categorized into 9 ordered categories), advice (teacher categorized the children into 7 possible forms of secondary education, i.e., Agr = agricultural; Ext = extended primary education; Gen = general; Grls = secondary school for girls; Man = manual, including housekeeping; None = no further education; Uni = pre- University), SES (parent’s profession in 6 categories) and school (37 different schools). The data have been analyzed previously in many Gifi publications, for example in <span class="citation" data-cites="deleeuw_mair_A_09a">De Leeuw and Mair (<a href="references.html#ref-deleeuw_mair_A_09a" role="doc-biblioref">2009</a>)</span>. For our MCA we only make the first four variables, school is treated as passive</p>
 <p>We use this example to illustrate some of the constraints on transformations. Two copies are used for all variables (although gender effectively only has one, of course). IQ is treated as ordinal, using a piecewise linear spline with knots at the nine data points.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>galo_knots <span class="ot">&lt;-</span> <span class="fu">knotsD</span>(galo)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>galo_knots <span class="ot">&lt;-</span> <span class="fu">knotsD</span>(galo)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>galo_degrees <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>galo_ordinal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>,<span class="cn">FALSE</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>galo_active <span class="ot">&lt;-</span><span class="fu">c</span> (<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>galo_active <span class="ot">&lt;-</span><span class="fu">c</span> (<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">homals</span> (galo, <span class="at">knots =</span> galo_knots, <span class="at">degrees =</span> galo_degrees, <span class="at">ordinal =</span> galo_ordinal, <span class="at">active =</span> galo_active)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">homals</span> (galo, <span class="at">knots =</span> galo_knots, <span class="at">degrees =</span> galo_degrees, <span class="at">ordinal =</span> galo_ordinal, <span class="at">active =</span> galo_active)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We first give transformations for the active variables (and their copies) in figure . We skip gender, because transformation plots for binary variables are not very informative. We give two transformation plots for IQ, first using <span class="math inline">\(H\)</span> and then using <span class="math inline">\(HA\)</span>. This illustrates the point made earlier, that transformation plots of block scores for ordinal variables with copies need not be monotone. It also illustrates that additional copies of an ordinal variable are not scaled to be monotone. Note that the plots for advice and SES are made with the utility <code>stepPlotter()</code>. Because the degree of the splines for those variables is zero, these transformation plots show step functions, with the steps at the knots, which are represented by vertical lines.</p>
 <div class="cell" data-layout-align="center">
@@ -540,14 +543,14 @@ The category quantifications for the passive variable indicating the 37 schools 
 <h3 data-number="4.3.2" class="anchored" data-anchor-id="thirteen-personality-scales"><span class="header-section-number">4.3.2</span> Thirteen Personality Scales</h3>
 <p>Our next example is a small data block from the <code>psych</code> package <span class="citation" data-cites="revelle_15">(<a href="references.html#ref-revelle_15" role="doc-biblioref">Revelle 2015</a>)</span> of five scales from the Eysenck Personality Inventory, five from a Big Five inventory, a Beck Depression Inventory, and State and Trait Anxiety measures.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>epi<span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/epi.bfi.csv"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>epi<span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/epi.bfi.csv"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>epi_knots <span class="ot">&lt;-</span> <span class="fu">knotsQ</span>(epi)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>epi_degrees <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="dv">0</span>, <span class="dv">13</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>epi_ordinal <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="cn">FALSE</span>, <span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>epi_ordinal <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="cn">FALSE</span>, <span class="dv">13</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We perform a two-dimensional MCA, using degree zero and inner knots at the three quartiles for all 13 variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">homals</span>(epi, <span class="at">knots =</span> epi_knots, <span class="at">degrees =</span> epi_degrees, <span class="at">ordinal =</span> epi_ordinal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">homals</span>(epi, <span class="at">knots =</span> epi_knots, <span class="at">degrees =</span> epi_degrees, <span class="at">ordinal =</span> epi_ordinal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 We have convergence in 271 iterations to loss 0.7472906. The object scores are in figure
 <hr>
@@ -634,8 +637,8 @@ The thirteen star plots are in figure
 <hr>
 <p>Now change the degree to two for all variables, i.e.&nbsp;fit piecewise quadratic polynomials which are differentiable at the knots. We still have two copies for each variable, and these two copies define the blocks.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>epi_degrees <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="dv">2</span>, <span class="dv">13</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">homals</span> (epi, <span class="at">knots =</span> epi_knots, <span class="at">degrees =</span> epi_degrees, <span class="at">ordinal =</span> epi_ordinal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>epi_degrees <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="dv">2</span>, <span class="dv">13</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">homals</span> (epi, <span class="at">knots =</span> epi_knots, <span class="at">degrees =</span> epi_degrees, <span class="at">ordinal =</span> epi_ordinal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <hr>
 <div class="cell" data-layout-align="center">

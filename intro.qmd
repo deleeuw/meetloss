@@ -1,4 +1,4 @@
-# Introduction
+# Introduction 
 
 One way of looking at  _Multivariate Analysis with Optimal Scaling_, or *MVAOS*, is as an extension of classical linear multivariate analysis to variables that are binary, ordered, or even unordered categorical. In R terminology, classical MVA techniques can thus be applied if some or all of the variables in the dataframe are *factors*. Categorical variables are *quantified* and numerical variables are *transformed* to optimize the linear or bilinear least squares fit.
 

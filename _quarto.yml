@@ -1,6 +1,5 @@
 project:
   type: book
-
 book:
   title: "Homogeneity Analysis"
   author: "Jan de Leeuw"
@@ -11,6 +10,9 @@ book:
     - coding.qmd
     - algorithm.qmd
     - mca.qmd
+    - ca.qmd
+    - pca.qmd
+    - canals.qmd
     - references.qmd
 date: last-modified
 date-format: long
@@ -25,7 +27,6 @@ papersize: letter
 graphics: true
 mainfont: Times New Roman
 search: true
-cover-image: hom_cover.jpg
 format:
   html:
     theme:
@@ -38,7 +39,9 @@ format:
      - preamble.tex
     pdf-engine: lualatex
     keep-tex: true
- 
+cover-image: hom_cover.jpg
+
+
 
  
 
