@@ -86,7 +86,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./ca.html" rel="next">
 <link href="./algorithm.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -227,6 +227,24 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Correspondence Analysis and corals()</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Nonlinear Principal Component Analysis and princals()</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./canals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Canonical Analysis and canals()</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -327,7 +345,7 @@ window.Quarto = {
 <h2 data-number="4.3" class="anchored" data-anchor-id="examples"><span class="header-section-number">4.3</span> Examples</h2>
 <section id="hartigans-hardware" class="level3" data-number="4.3.1">
 <h3 data-number="4.3.1" class="anchored" data-anchor-id="hartigans-hardware"><span class="header-section-number">4.3.1</span> Hartigan’s Hardware</h3>
-<p>Our first example are semi-serious data from <span class="citation" data-cites="hartigan_75">Hartigan (<a href="references.html#ref-hartigan_75" role="doc-biblioref">1975</a>)</span> (p.&nbsp;228), also analyzed in <span class="citation" data-cites="gifi_B_90">Gifi (<a href="references.html#ref-gifi_B_90" role="doc-biblioref">1990</a>)</span> (p.&nbsp;128-135). A number of screws, tacks, nails, and bolts are classified by six variables. The data are</p>
+<p>Our first example are semi-serious data from <span class="citation" data-cites="hartigan_75">Hartigan (<a href="#ref-hartigan_75" role="doc-biblioref">1975</a>)</span> (p.&nbsp;228), also analyzed in <span class="citation" data-cites="gifi_B_90">Gifi (<a href="#ref-gifi_B_90" role="doc-biblioref">1990</a>)</span> (p.&nbsp;128-135). A number of screws, tacks, nails, and bolts are classified by six variables. The data are</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>       thread head indentation bottom length brass
@@ -443,7 +461,7 @@ The star plots, produced by the utility <code>starPlotter()</code> are in figure
 </div>
 <p>Note that the two dominant eigenvalues are again equal to the diagonal elements of <span class="math inline">\(\Lambda\)</span>.</p>
 <p>###GALO</p>
-<p>The second example is somewhat more realistic. In the GALO dataset (<span class="citation" data-cites="peschar_75">Peschar (<a href="references.html#ref-peschar_75" role="doc-biblioref">1975</a>)</span>) data on 1290 school children in the sixth grade of an elementary school in 1959 in the city of Groningen (Netherlands) were collected. The variables are gender, IQ (categorized into 9 ordered categories), advice (teacher categorized the children into 7 possible forms of secondary education, i.e., Agr = agricultural; Ext = extended primary education; Gen = general; Grls = secondary school for girls; Man = manual, including housekeeping; None = no further education; Uni = pre- University), SES (parent’s profession in 6 categories) and school (37 different schools). The data have been analyzed previously in many Gifi publications, for example in <span class="citation" data-cites="deleeuw_mair_A_09a">De Leeuw and Mair (<a href="references.html#ref-deleeuw_mair_A_09a" role="doc-biblioref">2009</a>)</span>. For our MCA we only make the first four variables, school is treated as passive</p>
+<p>The second example is somewhat more realistic. In the GALO dataset (<span class="citation" data-cites="peschar_75">Peschar (<a href="#ref-peschar_75" role="doc-biblioref">1975</a>)</span>) data on 1290 school children in the sixth grade of an elementary school in 1959 in the city of Groningen (Netherlands) were collected. The variables are gender, IQ (categorized into 9 ordered categories), advice (teacher categorized the children into 7 possible forms of secondary education, i.e., Agr = agricultural; Ext = extended primary education; Gen = general; Grls = secondary school for girls; Man = manual, including housekeeping; None = no further education; Uni = pre- University), SES (parent’s profession in 6 categories) and school (37 different schools). The data have been analyzed previously in many Gifi publications, for example in <span class="citation" data-cites="deleeuw_mair_A_09a">De Leeuw and Mair (<a href="#ref-deleeuw_mair_A_09a" role="doc-biblioref">2009</a>)</span>. For our MCA we only make the first four variables, school is treated as passive</p>
 <p>We use this example to illustrate some of the constraints on transformations. Two copies are used for all variables (although gender effectively only has one, of course). IQ is treated as ordinal, using a piecewise linear spline with knots at the nine data points.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>galo_knots <span class="ot">&lt;-</span> <span class="fu">knotsD</span>(galo)</span>
@@ -467,7 +485,7 @@ The star plots, produced by the utility <code>starPlotter()</code> are in figure
 <center>
 </center>
 <hr>
-The four star plots for the active variables, together with the four category quantification plots, are in figure . Note that <code>homals()</code> does not compute category quantifications, we have to compute them from the <code>homals()</code> output. Also note that for gender, advice and SES the object scores are connected to the category centroids of the variables. For IQ object scores are connected to points on the line connecting adjacent category quantifications. See <span class="citation" data-cites="deleeuw_vanrijckevorsel_C_88">De Leeuw and Rijckevorsel (<a href="references.html#ref-deleeuw_vanrijckevorsel_C_88" role="doc-biblioref">1988</a>)</span> for category plots using forms of fuzzy coding (of which B-splines are an example).
+The four star plots for the active variables, together with the four category quantification plots, are in figure . Note that <code>homals()</code> does not compute category quantifications, we have to compute them from the <code>homals()</code> output. Also note that for gender, advice and SES the object scores are connected to the category centroids of the variables. For IQ object scores are connected to points on the line connecting adjacent category quantifications. See <span class="citation" data-cites="deleeuw_vanrijckevorsel_C_88">De Leeuw and Rijckevorsel (<a href="#ref-deleeuw_vanrijckevorsel_C_88" role="doc-biblioref">1988</a>)</span> for category plots using forms of fuzzy coding (of which B-splines are an example).
 <hr>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -541,7 +559,7 @@ The category quantifications for the passive variable indicating the 37 schools 
 </section>
 <section id="thirteen-personality-scales" class="level3" data-number="4.3.2">
 <h3 data-number="4.3.2" class="anchored" data-anchor-id="thirteen-personality-scales"><span class="header-section-number">4.3.2</span> Thirteen Personality Scales</h3>
-<p>Our next example is a small data block from the <code>psych</code> package <span class="citation" data-cites="revelle_15">(<a href="references.html#ref-revelle_15" role="doc-biblioref">Revelle 2015</a>)</span> of five scales from the Eysenck Personality Inventory, five from a Big Five inventory, a Beck Depression Inventory, and State and Trait Anxiety measures.</p>
+<p>Our next example is a small data block from the <code>psych</code> package <span class="citation" data-cites="revelle_15">(<a href="#ref-revelle_15" role="doc-biblioref">Revelle 2015</a>)</span> of five scales from the Eysenck Personality Inventory, five from a Big Five inventory, a Beck Depression Inventory, and State and Trait Anxiety measures.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>epi<span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/epi.bfi.csv"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>epi_knots <span class="ot">&lt;-</span> <span class="fu">knotsQ</span>(epi)</span>
@@ -682,7 +700,7 @@ The thirteen star plots are in figure
 <hr>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-deleeuw_mair_A_09a" class="csl-entry" role="listitem">
 De Leeuw, J., and P. Mair. 2009. <span>“<span class="nocase">Homogeneity Analysis in <span>R</span>: the Package homals</span>.”</span> <em>Journal of Statistical Software</em> 31 (4): 1–21. <a href="https://www.jstatsoft.org/v31/i04/">https://www.jstatsoft.org/v31/i04/</a>.
 </div>
@@ -1112,8 +1130,8 @@ Revelle, William. 2015. <em>Psych: Procedures for Psychological, Psychometric, a
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ca.html" class="pagination-link" aria-label="Correspondence Analysis and corals()">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Correspondence Analysis and corals()</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

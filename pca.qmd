@@ -1,3 +1,21 @@
+```{r ca, echo=FALSE}
+source("rcode/gifiEngine.R")
+source("rcode/gifiUtilities.R")
+source("rcode/gifiWrappers.R")
+source("rcode/gifiStructures.R")
+source("rcode/matrix.R")
+source("rcode/coneRegression.R")
+source("rcode/splineBasis.R")
+```
+
+```{r epi}
+epi <- read.csv("data/epi.bfi.csv")
+epi_knots <- knotsQ(epi)
+epi_degrees <- rep(0, 13)
+epi_ordinal <- rep(FALSE, 13)
+lbs <- c("epiE","epiS","epiImp","epiLie","epiNeur","bfagree","bfcon","bfext","bfneur","bfopen","bdi","traitanx","statanx")
+```
+
 # Nonlinear Principal Component Analysis and princals() 
 
 ## Introduction
@@ -24,14 +42,13 @@ val0 <- eigen(cor(epi))$values
 val1 <- eigen(h$rhat)$values
 ```
 In `r h$ntel` iterations we find minimum loss `r h$f`. The object scores are in figure
-`r figure_nums("epi_object_S_2", display = "n")` and the transformation plots in figure
-`r figure_nums("epi_transform_S_2", display = "n")`. NLPCA maximizes the sum of the two largest eigenvalues of the correlation matrix of the variables. Before transformation the eigenvalues are `r val0`, after transformation they are `r val1`. The sum of the first two goes from `r val0[1]+val0[2]` to `r val1[1]+val1[2]`.
+and the transformation plots in figure
+. NLPCA maximizes the sum of the two largest eigenvalues of the correlation matrix of the variables. Before transformation the eigenvalues are `r val0`, after transformation they are `r val1`. The sum of the first two goes from `r val0[1]+val0[2]` to `r val1[1]+val1[2]`.
 <hr>
 ```{r plot_epi_x_S_2, fig.align = "center"}
 plot(h$objectscores, xlab = "dim1", ylab = "dim2", col = "RED", cex = .5)
 ```
 <center>
-`r figure_nums("epi_object_S_2")`
 </center>
 <hr>
 
@@ -47,7 +64,6 @@ for (j in 1:13) {
 par(mfrow=c(1,1))
 ```
 <center>
-`r figure_nums("epi_transform_S_2")`
 </center>
 <hr>
 
@@ -59,14 +75,13 @@ h <- princals(epi, knotsE(epi), epi_degrees, epi_ordinal)
 val2 <- eigen(h$rhat)$values
 ```
 In `r h$ntel` iterations we find minimum loss `r h$f`. The object scores are in figure
-`r figure_nums("epi_object_P_2", display = "n")` and the transformation plots in figure
-`r figure_nums("epi_transform_P_2", display = "n")`. The eigenvalues are now `r val2`, with sum of the first two equal to `r val2[1]+val2[2]`.
+ and the transformation plots in figure
+. The eigenvalues are now `r val2`, with sum of the first two equal to `r val2[1]+val2[2]`.
 <hr>
 ```{r plot_epi_x_P_2, fig.align = "center", cache = FALSE, echo = FALSE}
 plot(h$objectscores, xlab = "dim1", ylab = "dim2", col = "RED", cex = .5)
 ```
 <center>
-`r figure_nums("epi_object_P_2")`
 </center>
 <hr>
 
@@ -80,6 +95,5 @@ for (j in 1:13) {
 par(mfrow=c(1,1))
 ```
 <center>
-`r figure_nums("epi_transform_P_2")`
 </center>
 <hr>

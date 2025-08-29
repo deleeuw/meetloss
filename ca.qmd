@@ -1,11 +1,23 @@
+
+
+```{r ca, echo=FALSE}
+source("rcode/gifiEngine.R")
+source("rcode/gifiUtilities.R")
+source("rcode/gifiWrappers.R")
+source("rcode/gifiStructures.R")
+source("rcode/matrix.R")
+source("rcode/coneRegression.R")
+source("rcode/splineBasis.R")
+```
+
 # Correspondence Analysis and corals()
 
 ## Introduction
 
-Ordinary correspondence analysis (OCA) is the special case of MCA in which there are only two variables, and both variables have the maximum number of copies. Consequently the `homals()` wrapper can be used to compute a CA. Because input and output can be organized a bit differently for OCA we have written the separate wrapper `corals()`.
+Ordinary correspondence analysis (CA) is the special case of MCA in which there are only two variables, and both variables have the maximum number of copies. Consequently the `homals()` wrapper can be used to compute a CA. Because input and output can be organized a bit differently for CA we have written the separate wrapper `corals()`.
 
-Note that `corals()` is not really intended for routine OCA computation. There are many packages in R which do that job much more efficiently. We mention, for example, `anacor` (@deleeuw_mair_A_09b) and `ca` (@nenadic_greenacre_07).
-However, `corals()` can be used for a number of cases which the usual OCA packages do not cover.
+Note that `corals()` is not really intended for routine CA computation. There are many packages in R which do that job much more efficiently. We mention, for example, `anacor` (@deleeuw_mair_A_09b) and `ca` (@nenadic_greenacre_07).
+However, `corals()` can be used for a number of cases which the usual CA packages do not cover.
 
 In `corals()`, as in the other packages, the default input is a single non-negative matrix $F$. Although any non-negative matrix will do, the most common, and the most natural, input is an $r\times c$ *cross table* with bivariate frequencies. Suppose the frequencies add up to the total number of observations $n$. Then `gifiEngine()`, which is called by `corals()`, requires input in the form of an $n\times 2$ matrix. Thus a $2\times 2$ table with 1000 observations becomes a $1000\times 2$ matrix. The utility `preCorals()` makes the conversion, but of course the representation is embarrassingly inefficient, both in terms of memory and in terms of computation. After the computations are done, the utility `postCorals()` restores transformations and scores to the appropriate row and column dimensions.
 
@@ -17,11 +29,11 @@ args(corals)
 If dtype is `FALSE`, then data is a matrix of dimension $n\times 2$, with $n$ the number of observations. This takes us back to the input format of `homals()` with two variables. If xknots and yknots are kept to their default `NULL`
 then they are replaced in `corals()` by the quartiles of the two variables.
 
-The redeeming feature of `corals()` is that, unlike the other classical OCA packages, it can handle numerical variables, it can incorporate higher order splines, it can impose monotonicity restrictions, and it can deal with missing data in one of both of the variables. If there are supplementary variables then it makes more sense to use `homals()`.
+The redeeming feature of `corals()` is that, unlike the other classical CA packages, it can handle numerical variables, it can incorporate higher order splines, it can impose monotonicity restrictions, and it can deal with missing data in one of both of the variables. If there are supplementary variables then it makes more sense to use `homals()`.
 
 ## Equations
 
-The usual stationary equations for OCA, using the category quantifications $Y_1$ and $Y_2$ are
+The usual stationary equations for CA, using the category quantifications $Y_1$ and $Y_2$ are
 \begin{align*}
 C_{12}Y_2&=D_1Y_1\Lambda,\\
 C_{21}Y_1&=D_2Y_2\Lambda,
@@ -39,9 +51,9 @@ with normalization $X'X=I$. It follows that
 C_{12}\tilde Y_2&=D_1\tilde Y_1(2\tilde\Lambda-I),\\
 C_{21}\tilde Y_1&=D_2\tilde Y_2(2\tilde\Lambda-I),
 \end{align*}
-and thus for the discrimination matrices $\tilde Y_1'D_1\tilde Y_1=\tilde Y_2'D_2\tilde Y_2=X'P_1X=X'P_2X=\tilde\Lambda$. The two sets of quantities from OCA and `corals()` are related by $\Lambda=2\tilde\Lambda-I$, $Y_1=\tilde Y_1\tilde\Lambda^{-\frac12}$ and $Y_2=\tilde Y_2\tilde\Lambda^{-\frac12}$. 
+and thus for the discrimination matrices $\tilde Y_1'D_1\tilde Y_1=\tilde Y_2'D_2\tilde Y_2=X'P_1X=X'P_2X=\tilde\Lambda$. The two sets of quantities from CA and `corals()` are related by $\Lambda=2\tilde\Lambda-I$, $Y_1=\tilde Y_1\tilde\Lambda^{-\frac12}$ and $Y_2=\tilde Y_2\tilde\Lambda^{-\frac12}$. 
 
-In classical OCA there is no direct equivalent of the object scores $X$. Also we typically do not use the decomposition $H_jA_j=G_jZ_jA_j=G_jY_j$, with $H_j'H_j=Z_j'D_jZ_j=I$. From `corals()` we get the loadings $H_j'X$, the correlations between the object scores and transformed copies, which for singleton blocks are always equal to the weights $A_j$. But since the decomposition $Y_j=Z_jA_j$ is not unique these are of limited use. The correlations
+In classical CA there is no direct equivalent of the object scores $X$. Also we typically do not use the decomposition $H_jA_j=G_jZ_jA_j=G_jY_j$, with $H_j'H_j=Z_j'D_jZ_j=I$. From `corals()` we get the loadings $H_j'X$, the correlations between the object scores and transformed copies, which for singleton blocks are always equal to the weights $A_j$. But since the decomposition $Y_j=Z_jA_j$ is not unique these are of limited use. The correlations
 between $X$ and the $G_j\tilde Y_j$ are more interesting. Since $X'G_j\tilde Y_j=\tilde\Lambda$, we see these correlations are equal to $\tilde\Lambda^\frac12$.
 
 
@@ -49,7 +61,7 @@ between $X$ and the $G_j\tilde Y_j$ are more interesting. Since $X'G_j\tilde Y_j
 
 ### Glass
 
-We start with a classical OCA example that was also used by @gifi_B_90 (p 277-280) and by @deleeuw_mair_A_09b. Data are from @glass_54. Occupational status of the fathers is crossed with occupational status of the son, for 3497 British families. The row (father) and column (son) categories are
+We start with a classical CA example that was also used by @gifi_B_90 (p 277-280) and by @deleeuw_mair_A_09b. Data are from @glass_54. Occupational status of the fathers is crossed with occupational status of the son, for 3497 British families. The row (father) and column (son) categories are
 
 * PROF professional and high administrative
 * EXEC managerial and executive
@@ -86,7 +98,7 @@ and for sons
 ```{r glass_quants_sons, echo = FALSE}
 mprint(h$yquantifications, d = 4, w = 8)
 ```
-We did not require the first dimension to be increasing, it just came out that way. We plot category quantifications in figure `r figure_nums("glass_quantifications", display = "n")`.
+We did not require the first dimension to be increasing, it just came out that way. We plot category quantifications in figure.
 <hr>
 ```{r glass-quantifications, fig_align = "center", echo = FALSE}
 par(mfrow=c(1,2), pty = "s")
@@ -96,11 +108,10 @@ plot(h$yquantifications, xlab = "dimension 1", ylab = "dimension 2", type = "n",
 text(h$yquantifications, names, col = "RED", cex = .5)
 ```
 <center>
-`r figure_nums("glass_quantifications")`
 </center>
 <hr>
 
-The 3497 objectscores can take only 49 different values, of which only 47 actually occur in the data. They are plotted in figure `r figure_nums("glass_objectscores", display = "n")`. Point labels are first letters of the two corresponding SES categories, first letter for the fathers, second letter for the sons.
+The 3497 objectscores can take only 49 different values, of which only 47 actually occur in the data. They are plotted in figure . Point labels are first letters of the two corresponding SES categories, first letter for the fathers, second letter for the sons.
 <hr>
 ```{r galo_objectscore_plot, echo = FALSE, fig.align = "center", fig.width = 6, fig.asp = 1}
 a <- array (0, c(dim(glass), 2))
@@ -120,12 +131,12 @@ for (i in 1:nrow(glass)) {
 }
 ```
 <center>
-`r figure_nums("glass_objectscore_plot")`
+
 </center>
 <hr>
-Next, we look at *regression plots*, made with the utility `regressionPlotter()`. One-dimensional category quantifications for rows and columns are used to locate row and column categories on the horizontal and vertical axes. Frequencies from the table are used to label the intersections of the corresponding vertical and horizontal lines. We then compute the regression lines, using row and column averages of the category quantifications, for these transformed variables. In the first plot we see what happens if we use equally spaced scores for the 
+Next, we look at *regression plots*, made with the utility `regressionPlotter()`. One-dimensional category quantifications for rows and columns are used to lCAte row and column categories on the horizontal and vertical axes. Frequencies from the table are used to label the intersections of the corresponding vertical and horizontal lines. We then compute the regression lines, using row and column averages of the category quantifications, for these transformed variables. In the first plot we see what happens if we use equally spaced scores for the 
 categories of both fathers and sons. Regressions are not quite linear. Then we use the first dimension of the
-OCA quantifications, which linearizes the regressions. And in the third plot we use the second dimension, which again linearizes the regressions, but permutes the rows and colums of the table.
+CA quantifications, which linearizes the regressions. And in the third plot we use the second dimension, which again linearizes the regressions, but permutes the rows and colums of the table.
 
 <hr>
 ```{r glass_regression_plot, fig.align="center", fig.width = 6, fig.height = 18, echo = FALSE}
@@ -135,7 +146,6 @@ regressionPlotter(glass,h$xquantifications[,1],h$yquantifications[,1], xname= "S
 regressionPlotter(glass,h$xquantifications[,2],h$yquantifications[,2], xname= "Sons", yname = "Fathers", main = "Second Corals Dimension")
 ```
 <center>
-`r figure_nums("glass_regression_plots")`
 </center>
 <hr>
 
@@ -153,7 +163,7 @@ galton
 h<-corals(galton, ndim=1)
 ```
 The regression plots from a one-dimensional `corals()`, with default options, in the familiar before and after
-format, are in figure `r figure_nums("galton_regression_plots", display = "n")`.
+format, are in figure.
 <hr>
 ```{r galton_regression_plots, fig.align = "center", fig.width = 6, fig.height = 14, echo = FALSE}
 par(mfrow=c(2,1))
@@ -161,7 +171,6 @@ regressionPlotter(galton,1:nrow(galton),1:ncol(galton), xname= "Children", yname
 regressionPlotter(galton,h$xtransform[, 1],h$ytransform[, 1], xname= "Children", yname = "Parents", main = "Corals Quantifications")
 ```
 <center>
-`r figure_nums("galton_regression_plots")`
 </center>
 <hr>
 
@@ -180,7 +189,7 @@ h <- corals(
   yknots = galton_knots
 )
 ```
-The transformations of the variables are in figure `r figure_nums("galton_transformation_plots", display = "n")`. They show some clear deviations from linearity.
+The transformations of the variables are in figure. They show some clear deviations from linearity.
 ```{r galton_transformation_plots, fig.align = "center", fig.width = 6, fig.height = 14, echo = FALSE}
 par(mfrow=c(2,1))
 plot(1:nrow(galton), h$xtransform[,1], xlab = "Row Value", ylab = "Transform", type = "l", lwd = 2, col = "RED")
@@ -189,6 +198,6 @@ plot(1:ncol(galton), h$ytransform[,1], xlab = "Column Value", ylab = "Transform"
 for (i in 1:5) abline(v = galton_knots[i])
 ```
 <center>
-`r figure_nums("galton_transformation_plots")`
+
 </center>
 <hr>
