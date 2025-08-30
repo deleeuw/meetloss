@@ -1,4 +1,4 @@
-```{r mca, echo=FALSE}
+```{r mca, echo = FALSE}
 source("code/gifiStructures.R")
 source("code/gifiEngine.R")
 source("code/gifiUtilities.R")
