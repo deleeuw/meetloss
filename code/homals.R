@@ -1,9 +1,4 @@
-source("gifiStructures.R")
-source("gifiEngine.R")
-source("gifiUtilities.R")
-source("matrix.R")
-source("coneRegression.R")
-source("splineBasis.R")
+
 
 homals <-
   function(theData,
