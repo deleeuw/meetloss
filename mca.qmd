@@ -1,11 +1,11 @@
 ```{r mca, echo=FALSE}
-source("rcode/gifiEngine.R")
-source("rcode/gifiUtilities.R")
-source("rcode/gifiWrappers.R")
-source("rcode/gifiStructures.R")
-source("rcode/matrix.R")
-source("rcode/coneRegression.R")
-source("rcode/splineBasis.R")
+source("code/gifiStructures.R")
+source("code/gifiEngine.R")
+source("code/gifiUtilities.R")
+source("code/homals.R")
+source("code/matrix.R")
+source("code/coneRegression.R")
+source("code/splineBasis.R")
 ```
 
 # Multiple Correspondence Analysis and homals() 
@@ -21,7 +21,7 @@ In our MVAOS MCA function `homals()` we allow for B-spline bases and for monoton
 
 ```{r homals_args, eval = FALSE}
 homals <-
-  function (data,
+  function (theData,
             knots = knotsD (data),
             degrees = rep (-1, ncol (data)),
             ordinal = rep (FALSE, ncol (data)),
@@ -74,7 +74,7 @@ hartigan
 ```
 We can do a simple MCA, using all the default values.
 ```{r hartigan_homals}
-h <- homals (makeNumeric(hartigan))
+h <- homals(makeNumeric(hartigan))
 ```
 After `r h$ntel` iterations we find a solution with loss `r h$f`. The object scores are plotted in figure 
 <hr>

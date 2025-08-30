@@ -19,13 +19,13 @@ mprint <- function(x,
 ```
 
 ```{r code_exec_engine, echo = FALSE}
-source("rcode/gifiEngine.R")
-source("rcode/gifiUtilities.R")
-source("rcode/gifiWrappers.R")
-source("rcode/gifiStructures.R")
-source("rcode/matrix.R")
-source("rcode/coneRegression.R")
-source("rcode/splineBasis.R")
+source("code/gifiEngine.R")
+source("code/gifiUtilities.R")
+source("code/gifiWrappers.R")
+source("code/gifiStructures.R")
+source("code/matrix.R")
+source("code/coneRegression.R")
+source("code/splineBasis.R")
 ```
 
 In the multivariate analysis techniques presented in this book the data are measurements or classifications of $n$ *objects* by $m$ *variables*.

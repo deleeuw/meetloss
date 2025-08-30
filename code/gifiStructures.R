@@ -85,7 +85,7 @@ makeGifiSet <-
     varList <- as.list(1:nvars)
     for (i in 1:nvars) {
       varList[[i]] <-
-        makeGifiVariable (
+        makeGifiVariable(
           theData = theData[, i],
           weights = weights[, i],
           knots = knots[[i]],
@@ -156,7 +156,7 @@ xGifiVariable <- function(gifiVariable, x) {
   weights <- lsRC(transform, x)$solution
   scores <- transform %*% weights
   quantifications <- lsRC(basis, scores)$solution
-  return (structure(
+  return(structure(
     list(
       transform = transform,
       weights = weights,

@@ -6,13 +6,13 @@ suppressPackageStartupMessages(library(microbenchmark, quietly = TRUE))
 ```
 
 ```{r code_exec_engine, echo = FALSE}
-source("rcode/gifiEngine.R")
-source("rcode/gifiUtilities.R")
-source("rcode/gifiWrappers.R")
-source("rcode/gifiStructures.R")
-source("rcode/matrix.R")
-source("rcode/coneRegression.R")
-source("rcode/splineBasis.R")
+source("code/gifiEngine.R")
+source("code/gifiUtilities.R")
+source("code/gifiWrappers.R")
+source("code/gifiStructures.R")
+source("code/matrix.R")
+source("code/coneRegression.R")
+source("code/splineBasis.R")
 ```
 
 # Preface {-}

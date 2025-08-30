@@ -1,25 +1,33 @@
+source("gifiStructures.R")
+source("gifiEngine.R")
+source("gifiUtilities.R")
+source("matrix.R")
+source("coneRegression.R")
+source("splineBasis.R")
+
 homals <-
-  function(data,
-           knots = knotsD(data),
+  function(theData,
+           knots = knotsD(theData),
            degrees = -1,
            ordinal = FALSE,
            ndim = 2,
            ties = "s",
            missing = "m",
-           names = colnames(data, do.NULL = FALSE),
+           names = colnames(theData, do.NULL = FALSE),
            active = TRUE,
            itmax = 1000,
            eps = 1e-6,
            seed = 123,
            verbose = FALSE)  {
-    nvars <- ncol (data)
+    nvars <- ncol(theData)
     g <- makeGifi(
-      data = data,
+      theData = theData,
+      weights = NULL,
       knots = knots,
       degrees = reshape(degrees, nvars),
       ordinal = reshape(ordinal, nvars),
       ties = reshape(ties, nvars),
-      copies = rep(ndim, ncol(data)),
+      copies = rep(ndim, ncol(theData)),
       missing = reshape(missing, nvars),
       active = reshape(active, nvars),
       names = names,
@@ -33,7 +41,7 @@ homals <-
       seed = seed,
       verbose = verbose
     )
-    a <- v <- z <- d <- y <- o <- as.list(1:ncol(data))
+    a <- v <- z <- d <- y <- o <- as.list(1:ncol(theData))
     dsum <- matrix(0, ndim, ndim)
     nact <- 0
     for (j in 1:nvars) {
@@ -50,7 +58,7 @@ homals <-
       d[[j]] <- cy
       o[[j]] <- crossprod(h$x, v[[j]])
     }
-    return (structure(
+    return(structure(
       list(
         transform = v,
         rhat = corList(v),
@@ -67,4 +75,3 @@ homals <-
       class = "homals"
     ))
   }
-

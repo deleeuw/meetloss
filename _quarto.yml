@@ -2,7 +2,9 @@ project:
   type: book
 book:
   title: "Homogeneity Analysis"
-  author: "Jan de Leeuw"
+  author: 
+    - Jan de Leeuw
+    - Patrick Mair
   date: "5/5/2025"
   chapters:
     - index.qmd
