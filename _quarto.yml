@@ -10,17 +10,23 @@ book:
     - index.qmd
     - intro.qmd
     - coding.qmd
+    - meetloss.qmd
     - algorithm.qmd
-    - mca.qmd
-    - ca.qmd
-    - pca.qmd
+    - homals.qmd
+    - corals.qmd
+    - coranals.qmd
+    - princals.qmd
     - canals.qmd
+    - morals.qmd
+    - addals.qmd
+    - criminals.qmd
+#    - overals.qmd
     - references.qmd
 date: last-modified
 date-format: long
 bibliography: [mypubs.bib, total.bib]
 number-sections: true
-fontsize: 12pt
+fontsize: 14pt
 link-citations: true
 toc: true
 toc-depth: 3

@@ -1,0 +1,25 @@
+
+# Meet Loss
+
+Meet-loss
+$$
+\sigma(X,A,B)=\text{SSQ}(X-GA)+\text{SSQ}(X-HB)
+$$
+Minimize over $A$ and $B$ and $X'X=I$. 
+$$
+\min_{A,B}\sigma(X,A,B)=2p-\text{tr}\ X'(P_G+P_H)X
+$$
+with $P_G:=G(G'G)^{-1}G'$ and $P_H:=H(H'H)^{-1}H'$.
+
+$$
+(P_G+P_H)X=X\Lambda
+$$
+
+Minimize over $X$ and $A,B$ satisfying $A'G'GA+B'H'HB=I$.
+$$
+\min_X\sigma(X,A,B)=\frac12\text{SSQ}(GA-HB)=2p-\text{tr}\ A'G'HB
+$$
+$$
+G'HB=G'GA\Lambda
+H'GA=H'HB\Lambda
+$$

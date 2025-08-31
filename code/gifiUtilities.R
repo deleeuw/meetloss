@@ -134,7 +134,7 @@ regressionPlotter <-
     nr <- nrow(table)
     nc <- ncol(table)
     sr <- rowSums(table)
-    sc <- colSum(table)
+    sc <- colSums(table)
     rc <- sum(table)
     x <- x - sum(sr * x) / rc
     y <- y - sum(sc * y) / rc

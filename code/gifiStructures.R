@@ -3,7 +3,6 @@
 
 makeGifiVariable <-
   function(theData,
-           weights,
            knots,
            degree,
            ordinal,
@@ -20,10 +19,6 @@ makeGifiVariable <-
       stop("a gifiVariable cannot be completely missing")
     # make a basis matrix for the nonmissing data
     work <- theData[there]
-    if (degree == -2) {
-      type <- "orthoblock"
-      basis <- NULL
-    }
     if (degree == -1) {
       type <- "categorical"
       basis <- makeIndicator(work)
@@ -72,7 +67,6 @@ return(structure(
 
 makeGifiSet <-
   function(theData,
-           weights,
            knots,
            degrees,
            ordinal,
@@ -87,7 +81,6 @@ makeGifiSet <-
       varList[[i]] <-
         makeGifiVariable(
           theData = theData[, i],
-          weights = weights[, i],
           knots = knots[[i]],
           degree = degrees[i],
           ordinal = ordinal[i],
@@ -105,7 +98,6 @@ makeGifiSet <-
 
 makeGifi <-
   function(theData,
-           weights,
            knots,
            degrees,
            ordinal,
@@ -118,11 +110,11 @@ makeGifi <-
     nsets <- max(sets)
     setList <- as.list(1:nsets)
     for (i in 1:nsets) {
+      print(i)
       k <- which(sets == i)
       setList[[i]] <-
         makeGifiSet(
           theData = theData[, k, drop = FALSE],
-          weights = weights[, k],
           knots = knots[k],
           degrees = degrees[k],
           ordinal = ordinal[k],

@@ -1,3 +1,13 @@
+```{r ca, echo = FALSE}
+source("code/gifiStructures.R")
+source("code/gifiEngine.R")
+source("code/gifiUtilities.R")
+source("code/morals.R")
+source("code/matrix.R")
+source("code/coneRegression.R")
+source("code/splineBasis.R")
+```
+
 # Multiple Regression and morals()
 
 If the second block only contains a single copy of a single variable then we choose transformations that maximize the multiple correlation of that variable and the variables in the first block.
@@ -34,8 +44,8 @@ h <- morals (xneumann, yneumann, xdegrees = c(0,2), xcopies = c(2,1))
 ```
 
 In `r h$ntel` iterations we find minimum loss `r h$f`, corresponding with a multiple correlation of `r sum(h$beta*h$rhat[-4,4])`.  The object scores are in figure
-`r figure_nums("neumann_objects", display = "n")` plotted against the original variables (not the transformed variables), and the transformation plots in are figure
-`r figure_nums("neumann_transform", display = "n")`.
+ plotted against the original variables (not the transformed variables), and the transformation plots in are figure
+.
 
 <hr>
 ```{r plot_neumann_objects, fig.align="center", cache = FALSE, echo = FALSE}
@@ -46,7 +56,6 @@ plot(neumann[,3], h$objscores, col = "RED", ylab = "Object Scores", xlab = "Dens
 par(mfrow=c(1,1))
 ```
 <center>
-`r figure_nums("neumann_objects")`
 </center>
 <hr>
 
@@ -71,8 +80,7 @@ for (k in 1:nknots) abline(v = neumann_knots[[3]][k])
 par(mfrow=c(1,1))
 ```
 <center>
-`r figure_nums("neumann_transform")`
 </center>
 <hr>
 
-## Conjoint Analysis and addals()
+

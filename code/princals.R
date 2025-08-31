@@ -1,32 +1,33 @@
 
+
 princals <-
-  function(data,
-           knots = knotsQ(data),
+  function(theData,
+           knots = knotsQ(theData),
            degrees = 2,
            ordinal = TRUE,
            copies = 1,
            ndim = 2,
            ties = "s",
            missing = "m",
-           names = colnames(data, do.NULL = FALSE),
+           names = colnames(theData, do.NULL = FALSE),
            active = TRUE,
            itmax = 1000,
            eps = 1e-6,
            seed = 123,
            verbose = FALSE)  {
-    aname <- deparse (substitute (data))
-    nvars <- ncol (data)
-    nobs <- nrow (data)
-    g <- makeGifi (
-      data = data,
+    aname <- deparse(substitute(theData))
+    nvars <- ncol(theData)
+    nobs <- nrow(theData)
+    g <- makeGifi(
+      theData = theData,
       knots = knots,
-      degrees = reshape (degrees, nvars),
-      ordinal = reshape (ordinal, nvars),
+      degrees = reshape(degrees, nvars),
+      ordinal = reshape(ordinal, nvars),
       sets =  1:nvars,
-      copies = reshape (copies, nvars),
-      ties = reshape (ties, nvars),
-      missing = reshape (missing, nvars),
-      active = reshape (active, nvars),
+      copies = reshape(copies, nvars),
+      ties = reshape(ties, nvars),
+      missing = reshape(missing, nvars),
+      active = reshape(active, nvars),
       names = names
     )
     h <- gifiEngine(
@@ -37,8 +38,8 @@ princals <-
       seed = seed,
       verbose = verbose
     )
-    a <- v <- z <- d <- y <- o <- as.list (1:nvars)
-    dsum <- matrix (0, ndim, ndim)
+    a <- v <- z <- d <- y <- o <- as.list(1:nvars)
+    dsum <- matrix(0, ndim, ndim)
     for (j in 1:nvars) {
       jgifi <- h$xGifi[[j]][[1]]
       v[[j]] <- jgifi$transform
@@ -48,17 +49,17 @@ princals <-
       cy <- crossprod (y[[j]])
       dsum <- dsum + cy
       d[[j]] <- cy
-      o[[j]] <- crossprod (h$x, v[[j]])
+      o[[j]] <- crossprod(h$x, v[[j]])
     }
-    return (structure (
-      list (
+    return(structure(
+      list(
         transform = v,
-        rhat = corList (v),
+        rhat = corList(v),
         objectscores = h$x,
         scores = y,
         quantifications = z,
         dmeasures = d,
-        lambda = dsum / ncol (data),
+        lambda = dsum / ncol(theData),
         weights = a,
         loadings = o,
         ntel = h$ntel,

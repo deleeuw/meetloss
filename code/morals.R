@@ -30,7 +30,7 @@ morals <-
     xactive <- reshape (xactive, npred)
     xcopies <- reshape (xcopies, npred)
     g <- makeGifi (
-      data = cbind (x, y),
+      theData = cbind (x, y),
       knots = c (xknots, yknots),
       degrees = c (xdegrees, ydegrees),
       ordinal = c (xordinal, yordinal),

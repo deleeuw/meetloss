@@ -1,17 +1,18 @@
-```{r ca, echo=FALSE}
+```{r ca, echo = FALSE}
+source("code/gifiStructures.R")
 source("code/gifiEngine.R")
 source("code/gifiUtilities.R")
-source("code/gifiWrappers.R")
-source("code/gifiStructures.R")
+source("code/princals.R")
 source("code/matrix.R")
 source("code/coneRegression.R")
 source("code/splineBasis.R")
 ```
 
-```{r epi}
+```{r epi, echo = FALSE}
 epi <- read.csv("data/epi.bfi.csv")
 epi_knots <- knotsQ(epi)
 epi_degrees <- rep(0, 13)
+epi_copies <- rep(1, 13)
 epi_ordinal <- rep(FALSE, 13)
 lbs <- c("epiE","epiS","epiImp","epiLie","epiNeur","bfagree","bfcon","bfext","bfneur","bfopen","bdi","traitanx","statanx")
 ```
@@ -33,8 +34,6 @@ Suppose all $m$ blocks each contain only a single variable. Then the Burt matrix
 We use the same data as before for an NLPCA with all blocks of rank one, all variables ordinal, and splines of degree 2.
 
 ```{r run_epi_3, cache = TRUE}
-epi_copies <- rep (1, 13)
-epi_ordinal <- rep (TRUE, 13)
 h <- princals(epi, epi_knots, epi_degrees, epi_ordinal, epi_copies)
 ```
 ```{r eigen_epi, echo = FALSE}
@@ -67,8 +66,10 @@ par(mfrow=c(1,1))
 </center>
 <hr>
 
-We repeat the analysis with ordinal variables of degree two, without interior knots. Thus we the transformation plots will be quadratic polynomials that are monotone over the range of the data.
+We repeat the analysis with ordinal variables of degree two, without interior knots. Thus the transformation plots will be quadratic polynomials that are monotone over the range of the data.
 ```{r run_epi_4, cache = TRUE}
+epi_degrees <- rep(2, 13)
+epi_ordinal <- rep(TRUE, 13)
 h <- princals(epi, knotsE(epi), epi_degrees, epi_ordinal)
 ```
 ```{r epi_eig, echo = FALSE}

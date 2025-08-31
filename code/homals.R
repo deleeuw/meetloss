@@ -17,7 +17,6 @@ homals <-
     nvars <- ncol(theData)
     g <- makeGifi(
       theData = theData,
-      weights = NULL,
       knots = knots,
       degrees = reshape(degrees, nvars),
       ordinal = reshape(ordinal, nvars),

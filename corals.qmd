@@ -1,10 +1,10 @@
 
 
 ```{r ca, echo=FALSE}
+source("code/gifiStructures.R")
 source("code/gifiEngine.R")
 source("code/gifiUtilities.R")
-source("code/gifiWrappers.R")
-source("code/gifiStructures.R")
+source("code/corals.R")
 source("code/matrix.R")
 source("code/coneRegression.R")
 source("code/splineBasis.R")
